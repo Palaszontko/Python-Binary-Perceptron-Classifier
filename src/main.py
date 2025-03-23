@@ -34,6 +34,14 @@ class Perceptron:
             return 1
         else:
             return 0
+        
+    def mapTagsToValues(self, tags : list) -> map:
+        'Map tags to values'
+        if len(set(tags)) != 2:
+            print("Error: Tags are not binary - perceptron can't be used")
+            sys.exit(1)
+        
+        return {list(set(tags))[0] : 0, list(set(tags))[1] : 1}
     
     def learn(self, input, decision, y):
         'Delta rule'
@@ -82,6 +90,9 @@ class Perceptron:
                 else:
                     break
         
+        self.getInput(len(trainData[0].weights), outputMap_valueToTag)
+
+
     def loadCsv(self, path : str) -> list:
         samples = []
         try:
@@ -98,6 +109,26 @@ class Perceptron:
             print(f"Error: {e}")
             sys.exit(1)
         return samples
+
+    def getInput(self, sampleSize : int, outputMap_valueToTag : map):
+        print("Type 'exit' to exit")
+        while True:
+            print("Enter a sample to test: ")
+            sample = input().split(';')
+
+            if 'exit' in "".join(sample):
+                break
+            elif len(sample) != sampleSize:
+                print("Sample size is incorrect")
+                continue
+            elif any(c.isalpha() for c in "".join(sample)):
+                print("Invalid sample: contains letters")
+                continue
+
+            sample = [float(x) for x in sample]
+            print(f"Result: {outputMap_valueToTag[self.compute(sample)]}")
+
+
 
 def main():
     alpha = input("Enter alpha: ")
