@@ -16,6 +16,7 @@ class Perceptron:
         self.threshold = random.randrange(-5,5)
         self.trainDataPath = trainDataPath
         self.testDataPath = testDataPath
+        self.isWeightsAndThresholdSet = False
 
     def setRandomWeightsAndthreshold(self, weightsSize : int):
         'Set random weights and threshold'
@@ -53,7 +54,10 @@ class Perceptron:
     def start(self):
         trainData = self.loadCsv(self.trainDataPath)
         testData = self.loadCsv(self.testDataPath)
-        self.setRandomWeightsAndthreshold(len(trainData[0].weights))
+
+        if not self.isWeightsAndThresholdSet:
+            self.setRandomWeightsAndthreshold(len(trainData[0].weights))
+            self.isWeightsAndThresholdSet = True
 
         # Map tags to values (0,1)
         outputMap_tagToValue = self.mapTagsToValues([sample.dataTag for sample in trainData])
