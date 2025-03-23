@@ -26,3 +26,11 @@ class Perceptron:
             return 1
         else:
             return 0
+    
+    def learn(self, input, decision, y):
+        'Delta rule'
+        for i in range(len(self.weights)):
+            self.weights[i] = round(self.weights[i] + (decision - y) * self.alpha * input[i], 7)
+
+        self.threshold = round(self.threshold - (decision - y) * self.alpha, 7)
+
