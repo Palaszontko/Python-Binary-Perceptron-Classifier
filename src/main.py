@@ -14,3 +14,15 @@ class Perceptron:
         self.trainDataPath = trainDataPath
         self.testDataPath = testDataPath
 
+    def calculateNet(self, input):
+        net = 0
+        for i in range(len(input)):
+            net += input[i] * self.weights[i]
+        return net - self.threshold
+    
+    def compute(self, input):
+        net = self.calculateNet(input)
+        if net >= 0:
+            return 1
+        else:
+            return 0
