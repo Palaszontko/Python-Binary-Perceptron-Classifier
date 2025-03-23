@@ -39,3 +39,20 @@ class Perceptron:
 
         self.threshold = round(self.threshold - (decision - y) * self.alpha, 7)
 
+    def loadCsv(self, path : str) -> list:
+        samples = []
+        try:
+            with open(path, 'r') as f:   
+                data = f.readlines()
+
+                for line in data:
+                    if line == '' or line == '\n':
+                        continue
+                    line = line.strip().split(';')
+                    samples.append(Sample([float(x) for x in line[:-1]], line[-1]))
+
+        except Exception as e:
+            print(f"Error: {e}")
+            sys.exit(1)
+        return samples
+
