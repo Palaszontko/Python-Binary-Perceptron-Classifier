@@ -14,6 +14,11 @@ class Perceptron:
         self.trainDataPath = trainDataPath
         self.testDataPath = testDataPath
 
+    def setRandomWeightsAndthreshold(self, weightsSize : int):
+        'Set random weights and threshold'
+        self.weights = [round(random.uniform(-5,5), 5) for _ in range(weightsSize)]
+        self.threshold = round(random.uniform(-5,5), 5)
+        
     def calculateNet(self, input):
         net = 0
         for i in range(len(input)):
